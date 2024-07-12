@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who Am I? - Multiple-Choice Version</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .game {
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            border-radius: 5px;
+        }
+
+        h1, p {
+            margin: 10px 0;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            transition-duration: 0.4s;
+            display: block;
+            width: 100%;
+            text-align: left;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="game">
+        <h1>Who Am I? - Multiple-Choice Version</h1>
+        <p>Welcome to "Who Am I?". This game helps you learn about basic programming concepts through questions and answers.</p>
+        <p>Choose the correct answer for each question:</p>
+        <p id="question-text">Click 'Next Question' to start</p>
+        <div id="options-container">
+            <!-- Options will be dynamically added here -->
+        </div>
+        <button id="next-btn" style="display: none;" onclick="nextQuestion()">Next Question</button>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is a variable in programming?",
+                options: ["A named storage location in memory", "A function that performs a specific task", "A type of loop in programming", "An array of elements"],
+                answer: "A named storage location in memory"
+            },
+            {
+                question: "What is a function?",
+                options: ["A named storage location in memory", "A block of code that performs a specific task", "A type of loop in programming", "An array of elements"],
+                answer: "A block of code that performs a specific task"
+            },
+            {
+                question: "What is a loop?",
+                options: ["A named storage location in memory", "A function that performs a specific task", "A programming construct that repeats a group of statements", "An array of elements"],
+                answer: "A programming construct that repeats a group of statements"
+            },
+            {
+                question: "What is an array?",
+                options: ["A named storage location in memory", "A function that performs a specific task", "A programming construct that repeats a group of statements", "A collection of elements accessed by indexing"],
+                answer: "A collection of elements accessed by indexing"
+            },
+            {
+                question: "What is a boolean?",
+                options: ["A named storage location in memory", "A block of code that performs a specific task", "A data type that represents true or false", "An array of elements"],
+                answer: "A data type that represents true or false"
+            },
+            {
+                question: "What is a string?",
+                options: ["A named storage location in memory", "A block of code that performs a specific task", "A sequence of characters used to represent text", "An array of elements"],
+                answer: "A sequence of characters used to represent text"
+            },
+            {
+                question: "What is an integer?",
+                options: ["A named storage location in memory", "A block of code that performs a specific task", "A whole number without decimal or fractional parts", "An array of elements"],
+                answer: "A whole number without decimal or fractional parts"
+            },
+            {
+                question: "What is an if statement?",
+                options: ["A named storage location in memory", "A block of code that performs a specific task", "A conditional statement that executes code based on a condition", "An array of elements"],
+                answer: "A conditional statement that executes code based on a condition"
+            },
+            {
+                question: "What is debugging?",
+                options: ["A named storage location in memory", "A block of code that performs a specific task", "The process of identifying and fixing errors in a program", "An array of elements"],
+                answer: "The process of identifying and fixing errors in a program"
+            },
+            {
+                question: "What is a comment in programming?",
+                options: ["A named storage location in memory", "A block of code that performs a specific task", "Text ignored by the compiler or interpreter", "An array of elements"],
+                answer: "Text ignored by the compiler or interpreter"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function displayQuestion() {
+            const currentQuestion = questions[currentQuestionIndex];
+            document.getElementById('question-text').textContent = currentQuestion.question;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = ''; // Clear previous options
+
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.setAttribute('onclick', `checkAnswer('${option}')`);
+                optionsContainer.appendChild(button);
+            });
+
+            document.getElementById('next-btn').style.display = 'none'; // Hide next button initially
+        }
+
+        function checkAnswer(userAnswer) {
+            const currentQuestion = questions[currentQuestionIndex];
+            const correctAnswer = currentQuestion.answer;
+
+            if (userAnswer === correctAnswer) {
+                alert("Yes! Your answer is correct.");
+            } else {
+                alert("No, your answer is incorrect. The correct answer is: \n\n" + correctAnswer);
+            }
+
+            document.getElementById('next-btn').style.display = 'block'; // Show next button after answering
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+            displayQuestion();
+        }
+
+        // Display the first question initially
+        displayQuestion();
+    </script>
+</body>
+</html>
